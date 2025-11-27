@@ -1,0 +1,19 @@
+conda create -n prokka -c conda-forge -c bioconda -c defaults prokka
+
+prokka --version
+#v1.14.6
+prokka --setupdb
+
+mkdir -p prokka_analysis/{input,output}
+cd prokka_analysis
+
+cd /home/input
+
+for file in input/*.fasta; do
+    base=$(basename "$file" .fasta)
+    prokka \
+        --outdir output/"$base" \
+        --prefix "$base" \
+        --cpus 8 \
+        "$file"
+done

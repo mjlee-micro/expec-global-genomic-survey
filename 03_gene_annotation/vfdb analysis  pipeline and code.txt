@@ -1,0 +1,25 @@
+conda create -n diamond_env
+conda install diamond
+
+wget http://www.mgc.ac.cn/VFs/Down/VFDB_setA_pro.fas.gz
+
+gunzip VFDB_setA_pro.fas.gz
+
+>VFG037176(gb|WP_001081735) (plc1) phospholipase C...
+
+grep ">" VFDB_setA_pro.fas | perl -nle '
+    if (/>(VFG\d+)\(.*?\)\s+\((.*?)\)/) { 
+        print "$1\t$2" 
+    } else { 
+        print "$1\tUnknown" 
+    }' > vfdb_annotations.tsv
+
+head -n 5 vfdb_annotations.tsv
+  expected results：
+VFG037176    plc1
+VFG037177    plc2
+VFG037203    plcD
+VFG037218    (gene)
+VFG037232    (gene)....
+
+python vfdb_annotion.py  #The code is in the superior folder

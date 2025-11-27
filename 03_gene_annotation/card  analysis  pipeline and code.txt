@@ -1,0 +1,8 @@
+conda create -n abricate_new -c conda-forge -c bioconda perl=5.26.2 abricate=1.0.1
+conda activate abricate_new
+
+abricate --setupdb
+
+cd /mnt/c/Users/input
+
+abricate --db card *.fasta > card_results.tsv
